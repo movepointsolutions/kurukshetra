@@ -107,14 +107,26 @@ MainWindow::MainWindow(QWidget *parent)
     ui->command->setFocus();
     QGridLayout *layout = new QGridLayout(ui->tab_board);
     std::istringstream I(::board);
-    for (int i = 0; i < 8; i++)
-        for (int j = 0; j < 8; j++) {
-            const auto field = QString::asprintf("%c%i", 'a' + j, 8 - i);
+    const int boardsize = 8;
+    for (int i = 0; i < boardsize; i++) {
+        QLabel *label = new QLabel(ui->tab_board);
+        layout->addWidget(label, boardsize, i + 1);
+        label->setFont(ui->log->font());
+        label->setText(QString::asprintf("%c", 'a' + i));
+        label = new QLabel(ui->tab_board);
+        layout->addWidget(label, i, 0);
+        label->setFont(ui->log->font());
+        label->setText(QString::asprintf("%i", boardsize - i));
+    }
+    for (int i = 0; i < boardsize; i++)
+        for (int j = 0; j < boardsize; j++) {
+            //const auto field = QString::asprintf("%c%i", 'a' + j, boardsize - i);
+            //field = QString();
             auto label = new QLabel(ui->tab_board);
-            label->setText(field);
+            //label->setText(field);
             label->setFont(ui->log->font());
             board[i][j] = label;
-            layout->addWidget(board[i][j], i, j);
+            layout->addWidget(board[i][j], i, j + 1);
             int data;
             I >> data;
             unsigned char r = data / 128 / 128;

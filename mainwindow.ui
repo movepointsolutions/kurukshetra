@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Kurukshetra</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -34,6 +34,29 @@
          </widget>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="tab_board">
+       <attribute name="title">
+        <string>Board</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_test">
+       <attribute name="title">
+        <string>Test</string>
+       </attribute>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>60</y>
+          <width>171</width>
+          <height>101</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>TEST123</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </item>

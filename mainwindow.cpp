@@ -122,7 +122,7 @@ MainWindow::MainWindow(QWidget *parent)
             unsigned char b = data;
             //QColor color{QRgb(data)};
             const auto c = QString::asprintf("#%02x%02x%02x", r, g, b);
-            log(c);
+            //log(c);
             board[i][j]->setStyleSheet("color: yellow; background-color: \"" + c + "\";");
         }
     ui->tab_board->setLayout(layout);

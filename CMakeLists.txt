@@ -41,6 +41,7 @@ else()
         add_executable(kurukshetra
             ${PROJECT_SOURCES}
             tabwidget.h tabwidget.cpp
+            field.h field.cpp
         )
     endif()
 endif()

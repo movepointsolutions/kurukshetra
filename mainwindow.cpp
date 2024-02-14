@@ -5,6 +5,7 @@
 #include <sstream>
 #include <utility>
 #include "mainwindow.h"
+#include "field.h"
 #include "./ui_mainwindow.h"
 
 static const std::string seed =
@@ -99,9 +100,9 @@ QString unique()
     return ret;
 }
 
-QLabel *create_label(Ui::MainWindow *ui, QString text)
+Field *MainWindow::create_field(QString text)
 {
-    QLabel *ret = new QLabel(ui->tab_board);
+    Field *ret = new Field(ui->tab_board);
     ret->setFont(ui->log->font());
     ret->setText(text);
     ret->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
@@ -118,20 +119,18 @@ MainWindow::MainWindow(QWidget *parent)
     std::istringstream I(::board);
     const int boardsize = 8;
     for (int i = 0; i < boardsize; i++) {
-        QLabel *label = create_label(ui, QString::asprintf("%c", 'a' + i));
+        QLabel *label = create_field(QString::asprintf("%c", 'a' + i));
         layout->addWidget(label, boardsize, i + 1);
-        label = create_label(ui, QString::asprintf("%i", boardsize - i));
+        label = create_field(QString::asprintf("%i", boardsize - i));
         layout->addWidget(label, i, 0);
     }
     for (int i = 0; i < boardsize; i++)
         for (int j = 0; j < boardsize; j++) {
-            //const auto field = QString::asprintf("%c%i", 'a' + j, boardsize - i);
-            //field = QString();
-            auto label = new QLabel(ui->tab_board);
-            //label->setText(field);
-            label->setFont(ui->log->font());
-            board[i][j] = label;
-            layout->addWidget(board[i][j], i, j + 1);
+            const auto field_name = QString::asprintf("%c%i", 'a' + j, boardsize - i);
+            const auto field_text = field_name == "b4" ? field_name : QString();
+            auto field = create_field(field_text);
+            layout->addWidget(field, i, j + 1);
+            board[i][j] = field;
             int data;
             I >> data;
             unsigned char r = data / 128 / 128;
@@ -140,7 +139,7 @@ MainWindow::MainWindow(QWidget *parent)
             //QColor color{QRgb(data)};
             const auto c = QString::asprintf("#%02x%02x%02x", r, g, b);
             //log(c);
-            board[i][j]->setStyleSheet("color: yellow; background-color: \"" + c + "\";");
+            field->setStyleSheet("color: yellow; background-color: \"" + c + "\";");
         }
     ui->tab_board->setLayout(layout);
 }

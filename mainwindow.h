@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QLabel>
 
+class Field;
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -24,6 +26,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QWidget *board[8][8];
+    Field *board[8][8];
+    Field *create_field(QString);
 };
 #endif // MAINWINDOW_H

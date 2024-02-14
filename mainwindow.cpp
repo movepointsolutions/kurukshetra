@@ -99,6 +99,15 @@ QString unique()
     return ret;
 }
 
+QLabel *create_label(Ui::MainWindow *ui, QString text)
+{
+    QLabel *ret = new QLabel(ui->tab_board);
+    ret->setFont(ui->log->font());
+    ret->setText(text);
+    ret->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+    return ret;
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -109,14 +118,10 @@ MainWindow::MainWindow(QWidget *parent)
     std::istringstream I(::board);
     const int boardsize = 8;
     for (int i = 0; i < boardsize; i++) {
-        QLabel *label = new QLabel(ui->tab_board);
+        QLabel *label = create_label(ui, QString::asprintf("%c", 'a' + i));
         layout->addWidget(label, boardsize, i + 1);
-        label->setFont(ui->log->font());
-        label->setText(QString::asprintf("%c", 'a' + i));
-        label = new QLabel(ui->tab_board);
+        label = create_label(ui, QString::asprintf("%i", boardsize - i));
         layout->addWidget(label, i, 0);
-        label->setFont(ui->log->font());
-        label->setText(QString::asprintf("%i", boardsize - i));
     }
     for (int i = 0; i < boardsize; i++)
         for (int j = 0; j < boardsize; j++) {

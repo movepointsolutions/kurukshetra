@@ -6,8 +6,9 @@
 class TabWidget : public QTabWidget
 {
     Q_OBJECT
+
 public:
-    TabWidget();
+    TabWidget(QWidget *parent = nullptr);
 };
 
 #endif // TABWIDGET_H
